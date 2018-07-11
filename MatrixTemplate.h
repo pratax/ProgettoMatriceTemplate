@@ -27,16 +27,26 @@ public:
         delete[] matrix;
     }
 
-    int getRighe() const {
+    int getRows() const {
         return rows;
     }
 
 
-    int getColonne() const {
+    int getColumns() const {
         return columns;
     }
 
-    MatrixTemplate selectRow()
+    MatrixTemplate selectRow(int r){
+        if(r<0)
+            throw std::out_of_range("Il numero della riga da estrarre non può essere minore di 0");
+        if(r>=rows)
+            throw std::out_of_range("Il numero della riga da estrare supera le dimensioni della matrice");
+        MatrixTemplate<T> tmpmat(1,columns);
+        for(int j=0;j<columns;j++){
+            tmpmat.matrix[j]=this->matrix[r*columns+j];
+        }
+        return tmpmat;
+    }
 
 
 
