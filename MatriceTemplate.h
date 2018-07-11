@@ -25,6 +25,15 @@ public:
         delete[] matrice;
     }
 
+    int getRighe() const {
+        return righe;
+    }
+
+
+    int getColonne() const {
+        return colonne;
+    }
+
 
 
 private:
