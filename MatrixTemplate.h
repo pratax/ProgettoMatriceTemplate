@@ -8,65 +8,71 @@
 #include <stdexcept>
 
 template<typename T>
-class MatriceTemplate{
+class MatrixTemplate{
 public:
-    MatriceTemplate(int r, int c):righe(r),colonne(c){
-        if(righe<0)
-            righe=0;
-        if(colonne<0)
-            colonne=0;
-        matrice=new T[righe*colonne];
-        for(int i=0;i<righe;i++){
-            for(int j=0;j<colonne;j++){
-                matrice[i*colonne+j]=0;
+    MatrixTemplate(int r, int c):rows(r),columns(c){
+        if(rows<0)
+            rows=0;
+        if(columns<0)
+            columns=0;
+        matrix=new T[rows*columns];
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                matrix[i*columns+j]=0;
             }
         }
     };
 
-    ~MatriceTemplate(){
-        delete[] matrice;
+    ~MatrixTemplate(){
+        delete[] matrix;
     }
 
     int getRighe() const {
-        return righe;
+        return rows;
     }
 
 
     int getColonne() const {
-        return colonne;
+        return columns;
     }
+
+    MatrixTemplate selectRow()
+
+
 
     T getValue(int r, int c) const {
         if(r<0)
             throw std::out_of_range("Il numero della riga non può essere minore di 0");
-        if(r>=righe)
+        if(r>=rows)
             throw std::out_of_range("Il numero della riga supera le dimensioni della matrice");
         if(c<0)
             throw std::out_of_range("Il numero della colonna non può essere minore di 0");
-        if(c>=colonne)
+        if(c>=columns)
             throw std::out_of_range("Il numero della colonna supera le dimensioni della matrice");
-        return matrice[r*colonne+c];
+        return matrix[r*columns+c];
     }
 
     void setValue(int r, int c, T& value) {
         if(r<0)
             throw std::out_of_range("Il numero della riga non può essere minore di 0");
-        if(r>=righe)
+        if(r>=rows)
             throw std::out_of_range("Il numero della riga supera le dimensioni della matrice");
         if(c<0)
             throw std::out_of_range("Il numero della colonna non può essere minore di 0");
-        if(c>=colonne)
+        if(c>=columns)
             throw std::out_of_range("Il numero della colonna supera le dimensioni della matrice");
-        matrice[r*colonne+c]=value;
+        matrix[r*columns+c]=value;
     }
+
+
 
 
 
 
 
 private:
-    T* matrice;
-    int righe,colonne;
+    T* matrix;
+    int rows,columns;
 };
 
 #endif //PROGETTOMATRICITEMPLATE_MATRICETEMPLATE_H
