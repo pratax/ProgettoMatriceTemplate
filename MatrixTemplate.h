@@ -206,6 +206,30 @@ public:
         return *this;
     }
 
+    MatrixTemplate operator*(const MatrixTemplate& rmatrix){
+        if(columns!=rmatrix.rows)
+            throw std::logic_error("Il numero di colonne della prima matrice deve essere uguale al numero di righe della seconda matrice");
+        MatrixTemplate<T>matmult(rows,rmatrix.columns);
+        for(int i=0;i<matmult.rows;i++){
+            for(int j=0;j<matmult.columns;j++){
+                for(int m=0;m<columns;m++) {
+                    matmult.matrix[i*matmult.columns+j]+=matrix[i*columns+m]*rmatrix.matrix[m*rmatrix.columns+j];
+                }
+            }
+        }
+        return matmult;
+    }
+
+    MatrixTemplate operator*(const T& num){
+        MatrixTemplate<T>matmult(rows,columns);
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                matmult.matrix[i*columns+j]=num*matrix[i*columns+j];
+            }
+        }
+        return matmult;
+    }
+
 
 
 
