@@ -74,6 +74,33 @@ public:
         matrix[r*columns+c]=value;
     }
 
+    MatrixTemplate(const MatrixTemplate& rmatrix){
+        rows=rmatrix.rows;
+        columns=rmatrix.columns;
+        matrix = new T[rows*columns];
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                matrix[i*columns+j]=rmatrix.matrix[i*columns+j];
+            }
+        }
+    }
+
+    MatrixTemplate& operator=(const MatrixTemplate& rmatrix){
+        if(this!=&rmatrix){
+            rows=rmatrix.rows;
+            columns=rmatrix.columns;
+            if(matrix!= nullptr)
+                matrix= nullptr;
+            matrix = new T[rows*columns];
+            for(int i=0;i<rows;i++){
+                for(int j=0;j<columns;j++){
+                    matrix[i*columns+j]=rmatrix.matrix[i*columns+j];
+                }
+            }
+        }
+        return *this;
+    }
+
 
 
 
