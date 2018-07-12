@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <cmath>
 #include <cfloat>
+#include <iostream>
 
 template<typename T>
 class MatrixTemplate{
@@ -17,16 +18,16 @@ public:
             rows=0;
         if(columns<0)
             columns=0;
-        matrix=new T[rows*columns];
+        this->matrix = new T[rows*columns];
         for(int i=0;i<rows;i++){
             for(int j=0;j<columns;j++){
-                matrix[i*columns+j]=0;
+                this->matrix[i*columns+j]=0;
             }
         }
     };
 
     ~MatrixTemplate(){
-        delete[] matrix;
+        delete[] this->matrix;
     }
 
     int getRows() const {
@@ -71,10 +72,10 @@ public:
             throw std::out_of_range("Il numero della colonna non può essere minore di 0");
         if(c>=columns)
             throw std::out_of_range("Il numero della colonna supera le dimensioni della matrice");
-        return matrix[r*columns+c];
+        return this->matrix[r*columns+c];
     }
 
-    void setValue(int r, int c, T& value) {
+    void setValue(int r, int c, T value) {
         if(r<0)
             throw std::out_of_range("Il numero della riga non può essere minore di 0");
         if(r>=rows)
@@ -83,16 +84,16 @@ public:
             throw std::out_of_range("Il numero della colonna non può essere minore di 0");
         if(c>=columns)
             throw std::out_of_range("Il numero della colonna supera le dimensioni della matrice");
-        matrix[r*columns+c]=value;
+        this->matrix[r*columns+c]=value;
     }
 
     MatrixTemplate(const MatrixTemplate& rmatrix){
         rows=rmatrix.rows;
         columns=rmatrix.columns;
-        matrix = new T[rows*columns];
+        this->matrix = new T[rows*columns];
         for(int i=0;i<rows;i++){
             for(int j=0;j<columns;j++){
-                matrix[i*columns+j]=rmatrix.matrix[i*columns+j];
+                this->matrix[i*columns+j]=rmatrix.matrix[i*columns+j];
             }
         }
     }
@@ -101,12 +102,12 @@ public:
         if(this!=&rmatrix){
             rows=rmatrix.rows;
             columns=rmatrix.columns;
-            if(matrix!= nullptr)
-                matrix= nullptr;
-            matrix = new T[rows*columns];
+            if(this->matrix!= nullptr)
+                this->matrix= nullptr;
+            this->matrix = new T[rows*columns];
             for(int i=0;i<rows;i++){
                 for(int j=0;j<columns;j++){
-                    matrix[i*columns+j]=rmatrix.matrix[i*columns+j];
+                    this->matrix[i*columns+j]=rmatrix.matrix[i*columns+j];
                 }
             }
         }
@@ -117,7 +118,7 @@ public:
         MatrixTemplate<T>transmat(columns,rows);
         for(int i=0;i<rows;i++){
             for(int j=0;j<columns;j++){
-                transmat.matrix[j*transmat.columns+i]=matrix[i*columns+j];
+                transmat.matrix[j*transmat.columns+i]=this->matrix[i*columns+j];
             }
         }
         return transmat;
@@ -129,7 +130,7 @@ public:
         MatrixTemplate<T>matsum(rows,columns);
         for(int i=0;i<rows;i++){
             for(int j=0;j<columns;j++){
-                matsum.matrix[i*columns+j]=matrix[i*columns+j]+rmatrix.matrix[i*columns+j];
+                matsum.matrix[i*columns+j]=this->matrix[i*columns+j]+rmatrix.matrix[i*columns+j];
             }
         }
         return matsum;
@@ -140,7 +141,7 @@ public:
             throw std::logic_error("Le dimensioni delle due matrici non coincidono");
         for(int i=0;i<rows;i++){
             for(int j=0;j<columns;j++){
-                matrix[i*columns+j]+=rmatrix.matrix[i*columns+j];
+                this->matrix[i*columns+j]+=rmatrix.matrix[i*columns+j];
             }
         }
         return *this;
@@ -151,7 +152,7 @@ public:
             return false;
         for(int i=0;i<rows;i++){
             for(int j=0;j<columns;j++){
-                if(!areEqual(matrix[i*columns+j],rmatrix.matrix[i*columns+j])){
+                if(!(areEqual(this->matrix[i*columns+j],rmatrix.matrix[i*columns+j]))){
                     return false;
                 }
             }
@@ -165,22 +166,6 @@ public:
 
     bool areEqual(T a, T b){
         return a==b;
-    }
-
-    template<>
-    bool areEqual<float>(float a, float b){
-        float diff = a-b;
-        if(fabs(diff)<=FLT_EPSILON)
-            return true;
-        return false;
-    }
-
-    template<>
-    bool areEqual<double>(double a, double b){
-        double diff = a-b;
-        if(fabs(diff)<=FLT_EPSILON)
-            return true;
-        return false;
     }
 
     MatrixTemplate operator-(const MatrixTemplate& rmatrix){
@@ -253,6 +238,28 @@ public:
         return matpow;
     }
 
+    MatrixTemplate elpow(const int& a){
+        if(a<1)
+            throw std::logic_error("L'esponente deve essere un intero maggiore di 0");
+        MatrixTemplate<T>elpow(rows,columns);
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                elpow.matrix[i*columns+j]=pow(this->matrix[i*columns+j],a);
+            }
+        }
+        return elpow;
+    }
+
+    void print(){
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                std::cout<<matrix[i*columns+j]<<" ";
+            }
+            std::cout<<std::endl;
+        }
+    }
+
+
 
 
 
@@ -273,5 +280,26 @@ private:
     T* matrix;
     int rows,columns;
 };
+
+template<typename T>
+bool areEqual(T a, T b){
+    return a==b;
+}
+
+template<>
+bool areEqual<float>(float a, float b){
+    float diff = a-b;
+    if(std::abs(diff)<=FLT_EPSILON)
+        return true;
+    return false;
+}
+
+template<>
+bool areEqual<double>(double a, double b){
+    double diff = a-b;
+    if(std::abs(diff)<=FLT_EPSILON)
+        return true;
+    return false;
+}
 
 #endif //PROGETTOMATRICITEMPLATE_MATRICETEMPLATE_H
