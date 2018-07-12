@@ -6,6 +6,8 @@
 #define PROGETTOMATRICITEMPLATE_MATRICETEMPLATE_H
 
 #include <stdexcept>
+#include <cmath>
+#include <cfloat>
 
 template<typename T>
 class MatrixTemplate{
@@ -132,6 +134,39 @@ public:
             }
         }
         return *this;
+    }
+
+    bool operator==(const MatrixTemplate& rmatrix){
+        if(rows!=rmatrix.rows || columns!=rmatrix.columns)
+            return false;
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                if(!areEqual(matrix[i*columns+j],rmatrix.matrix[i*columns+j])){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    bool areEqual(T a, T b){
+        return a==b;
+    }
+
+    template<>
+    bool areEqual<float>(float a, float b){
+        float diff = a-b;
+        if(fabs(diff)<=FLT_EPSILON)
+            return true;
+        return false;
+    }
+
+    template<>
+    bool areEqual<double>(double a, double b){
+        double diff = a-b;
+        if(fabs(diff)<=FLT_EPSILON)
+            return true;
+        return false;
     }
 
 
