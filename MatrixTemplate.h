@@ -50,7 +50,17 @@ public:
         return tmpmat;
     }
 
-
+    MatrixTemplate selectColumn(int c){
+        if(c<0)
+            throw std::out_of_range("Il numero della colonna da estrarre non può essere minore di 0");
+        if(c>=columns)
+            throw std::out_of_range("Il numero della colonna da estrarre supera le dimensioni della matrice");
+        MatrixTemplate<T> tmpmat(rows,1);
+        for(int i=0;i<rows;i++){
+            tmpmat.matrix[i]=this->matrix[i*columns+c];
+        }
+        return tmpmat;
+    }
 
     T getValue(int r, int c) const {
         if(r<0)
