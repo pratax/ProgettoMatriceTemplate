@@ -183,6 +183,29 @@ public:
         return false;
     }
 
+    MatrixTemplate operator-(const MatrixTemplate& rmatrix){
+        if(rows!=rmatrix.rows || columns!=rmatrix.columns)
+            throw std::logic_error("Le dimensioni delle due matrici non coincidono");
+        MatrixTemplate<T>matsub(rows,columns);
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<rows;j++){
+                matsub.matrix[i*columns+j]=matrix[i*columns+j]-rmatrix.matrix[i*columns+j];
+            }
+        }
+        return matsub;
+    }
+
+    MatrixTemplate operator-=(const MatrixTemplate& rmatrix){
+        if(rows!=rmatrix.rows || columns!=rmatrix.columns)
+            throw std::logic_error("Le dimensioni delle due matrici non coincidono");
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                matrix[i*columns+j]-=rmatrix.matrix[i*columns+j];
+            }
+        }
+        return *this;
+    }
+
 
 
 
