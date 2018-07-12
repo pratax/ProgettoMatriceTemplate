@@ -101,6 +101,20 @@ public:
         return *this;
     }
 
+    MatrixTemplate transposedMatrx(){
+        MatrixTemplate<T>transmat(columns,rows);
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                transmat.matrix[j*transmat.columns+i]=matrix[i*columns+j];
+            }
+        }
+        return transmat;
+    }
+
+
+
+
+
 
 
 
