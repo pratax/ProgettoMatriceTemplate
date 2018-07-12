@@ -230,6 +230,20 @@ public:
         return matmult;
     }
 
+    MatrixTemplate elmult(const MatrixTemplate& rmatrix){
+        if(rows!=rmatrix.rows || columns!=rmatrix.columns)
+            throw std::logic_error("Le dimensioni delle due matrici non coincidono");
+        MatrixTemplate<T>elmult(rows,columns);
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                elmult.matrix[i*columns+j]=matrix[i*columns+j]*rmatrix.matrix[i*columns+j];
+            }
+        }
+        return elmult;
+    }
+
+
+
 
 
 
