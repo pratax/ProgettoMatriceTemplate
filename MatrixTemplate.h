@@ -242,6 +242,19 @@ public:
         return elmult;
     }
 
+    MatrixTemplate operator^(const int& a){
+        if(a<1)
+            throw std::logic_error("L'esponente deve essere un intero maggiore di 0");
+        MatrixTemplate<T>matpow(rows,columns);
+        matpow=*this;
+        for(int i=1;i<a;i++){
+            matpow=matpow*(*this);
+        }
+        return matpow;
+    }
+
+
+
 
 
 
