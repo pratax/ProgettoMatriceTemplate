@@ -149,6 +149,10 @@ public:
         return true;
     }
 
+    bool operator!=(const MatrixTemplate& rmatrix){
+        return !(*this==rmatrix);
+    }
+
     bool areEqual(T a, T b){
         return a==b;
     }
