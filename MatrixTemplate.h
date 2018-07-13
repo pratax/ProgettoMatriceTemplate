@@ -330,6 +330,29 @@ public:
         throw std::out_of_range("Impossibile calcolare norma 2");
     }
 
+    MatrixTemplate ones(){
+        MatrixTemplate<T>ones(rows,columns);
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                ones.matrix[i*columns+j]=1;
+            }
+        }
+        return ones;
+    }
+
+    MatrixTemplate identity(){
+        MatrixTemplate<T>identity(rows,columns);
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                if(i==j)
+                    identity.matrix[i*columns+j]=1;
+                else
+                    identity.matrix[i*columns+j]=0;
+            }
+        }
+        return identity;
+    }
+
 
 
 
