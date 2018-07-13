@@ -3,17 +3,19 @@
 #include "MatrixFactory.h"
 
 int main() {
-    MatrixFactory<int>* matfact;
-    auto pow1 = matfact->createMatrixTemplate(3,3);
-    pow1->setValue(0,0,-1);
-    pow1->setValue(0,1,3);
-    pow1->setValue(0,2,5);
-    pow1->setValue(1,0,2);
-    pow1->setValue(1,1,7);
-    pow1->setValue(1,2,-5);
-    pow1->setValue(2,0,-9);
-    pow1->setValue(2,1,0);
-    pow1->setValue(2,2,0);
-    auto identity1 = pow1->identity();
-    identity1.print();
+    MatrixFactory<int>* intFactory;
+    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    Mat1->setValue(0,0,1);
+    Mat1->setValue(0,1,5);
+    Mat1->setValue(0,2,3);
+    Mat1->setValue(1,2,7);
+    Mat1->setValue(2,0,5);
+    Mat1->setValue(2,1,10);
+    Mat1->setValue(2,2,-5);
+    MatrixTemplate<int>Mat2(*Mat1);
+    Mat2.setValue(2,1,5);
+    Mat2.setValue(1,1,-9);
+    Mat1->print();
+    std::cout<<std::endl;
+    Mat2.print();
 }
