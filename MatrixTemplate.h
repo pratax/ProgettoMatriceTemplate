@@ -310,6 +310,26 @@ public:
         return max;
     }
 
+    double norma2(){
+        if(this->rows==1){
+            int sum = pow(this->matrix[0],2);
+            for(int i=1;i<this->columns;i++){
+                sum+=pow(this->matrix[i],2);
+            }
+            return sqrt(sum);
+        }
+        if(this->columns==1){
+            int sum = 0;
+            for(int j=0;j<columns;j++){
+                for(int i=0;i<rows;i++){
+                    sum+=pow(this->matrix[i*columns+j],2);
+                }
+            }
+            return sqrt(sum);
+        }
+        throw std::out_of_range("Impossibile calcolare norma 2");
+    }
+
 
 
 
