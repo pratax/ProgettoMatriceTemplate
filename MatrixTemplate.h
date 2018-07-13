@@ -261,11 +261,11 @@ public:
 
     T normainf(){
         if(this->rows==1 || this->columns==1){
-            int max = this->matrix[0];
+            int max = std::abs(this->matrix[0]);
             for(int i=0;i<rows;i++){
                 for(int j=0;j<columns;j++){
-                    if(matrix[i*columns+j]>max)
-                        max=matrix[i*columns+j];
+                    if(std::abs(matrix[i*columns+j])>max)
+                        max=std::abs(matrix[i*columns+j]);
                 }
             }
             return max;
@@ -274,12 +274,36 @@ public:
         for(int i=0;i<rows;i++){
             int sum = 0;
             for(int j=0;j<columns;j++){
-                sum+=this->matrix[i*columns+j];
+                sum+=std::abs(this->matrix[i*columns+j]);
             }
             tmpvect.matrix[i]=sum;
         }
         int max=tmpvect.matrix[0];
         for(int i=1;i<tmpvect.columns;i++){
+            if(tmpvect.matrix[i]>max)
+                max=tmpvect.matrix[i];
+        }
+        return max;
+    }
+
+    T norma1(){
+        if(this->rows==1){
+            int max = std::abs(this->matrix[0]);
+            for(int i=1;i<columns;i++){
+                max+=std::abs(this->matrix[i]);
+            }
+            return max;
+        }
+        MatrixTemplate<T> tmpvect(1,columns);
+        for(int j=0;j<columns;j++){
+            int sum = 0;
+            for(int i=0;i<rows;i++){
+                sum+=std::abs(this->matrix[i*columns+j]);
+            }
+            tmpvect.matrix[j]=sum;
+        }
+        int max = tmpvect.matrix[0];
+        for(int i=0;i<tmpvect.columns;i++){
             if(tmpvect.matrix[i]>max)
                 max=tmpvect.matrix[i];
         }
