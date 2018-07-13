@@ -18,5 +18,4 @@ int main() {
     Mat1->print();
     std::cout<<std::endl;
     Mat2.print();
-    int x=0;
 }
