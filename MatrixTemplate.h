@@ -353,25 +353,6 @@ public:
         return identity;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 private:
     T* matrix;
     int rows,columns;
