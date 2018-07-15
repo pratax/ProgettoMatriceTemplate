@@ -114,7 +114,7 @@ public:
         return *this;
     }
 
-    MatrixTemplate transposedMatrx(){
+    MatrixTemplate transposedMatrix(){
         MatrixTemplate<T>transmat(columns,rows);
         for(int i=0;i<rows;i++){
             for(int j=0;j<columns;j++){
@@ -215,7 +215,7 @@ public:
         return matmult;
     }
 
-    MatrixTemplate elmult(const MatrixTemplate& rmatrix){
+    MatrixTemplate elMult(const MatrixTemplate& rmatrix){
         if(rows!=rmatrix.rows || columns!=rmatrix.columns)
             throw std::logic_error("Le dimensioni delle due matrici non coincidono");
         MatrixTemplate<T>elmult(rows,columns);
@@ -238,7 +238,7 @@ public:
         return matpow;
     }
 
-    MatrixTemplate elpow(const int& a){
+    MatrixTemplate elPow(const int& a){
         if(a<1)
             throw std::logic_error("L'esponente deve essere un intero maggiore di 0");
         MatrixTemplate<T>elpow(rows,columns);
@@ -353,6 +353,63 @@ public:
         return identity;
     }
 
+    MatrixTemplate diag(){
+        if(rows!=columns)
+            throw std::logic_error("La matrice deve essere quadrata");
+        MatrixTemplate<T> diag(rows,columns);
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                if(i==j)
+                    diag.matrix[i*columns+j]=this->matrix[i*columns+j];
+                else
+                    diag.matrix[i*columns+j]=0;
+            }
+        }
+        return diag;
+    }
+
+    MatrixTemplate diagVect(){
+        if(rows!=columns)
+            throw std::logic_error("La matrice deve essere quadrata per estrarne la diagonale");
+        MatrixTemplate<T> diagvect(1,columns);
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                if(i==j)
+                    diagvect.matrix[i]=this->matrix[i*columns+j];
+            }
+        }
+        return diagvect;
+    }
+
+    MatrixTemplate upperTriangular(){
+        if(rows!=columns)
+            throw std::logic_error("La matrice deve essere quadrata");
+        MatrixTemplate<T>upperT(rows,columns);
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                if(j>=i)
+                    upperT.matrix[i*columns+j]=this->matrix[i*columns+j];
+                else
+                    upperT.matrix[i*columns+j]=0;
+            }
+        }
+        return upperT;
+    }
+
+    MatrixTemplate lowerTriangular(){
+        if(rows!=columns)
+            throw std::logic_error("La matrice deve essere quadrata");
+        MatrixTemplate<T>lowerT(rows,columns);
+        for(int i=0;i<rows;i++){
+            for(int j=0;j<columns;j++){
+                if(i>=j)
+                    lowerT.matrix[i*columns+j]=this->matrix[i*columns+j];
+                else
+                    lowerT.matrix[i*columns+j]=0;
+            }
+        }
+        return lowerT;
+    }
 private:
     T* matrix;
     int rows,columns;
