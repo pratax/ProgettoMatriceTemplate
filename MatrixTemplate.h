@@ -39,7 +39,7 @@ public:
         return columns;
     }
 
-    MatrixTemplate selectRow(int r){
+    MatrixTemplate* selectRow(int r){
         if(r<0)
             throw std::out_of_range("Il numero della riga da estrarre non può essere minore di 0");
         if(r>=rows)
@@ -48,10 +48,10 @@ public:
         for(int j=0;j<columns;j++){
             tmpmat.matrix[j]=this->matrix[r*columns+j];
         }
-        return tmpmat;
+        return &tmpmat;
     }
 
-    MatrixTemplate selectColumn(int c){
+    MatrixTemplate* selectColumn(int c){
         if(c<0)
             throw std::out_of_range("Il numero della colonna da estrarre non può essere minore di 0");
         if(c>=columns)
@@ -60,7 +60,7 @@ public:
         for(int i=0;i<rows;i++){
             tmpmat.matrix[i]=this->matrix[i*columns+c];
         }
-        return tmpmat;
+        return &tmpmat;
     }
 
     T getValue(int r, int c) const {
@@ -98,7 +98,7 @@ public:
         }
     }
 
-    MatrixTemplate& operator=(const MatrixTemplate& rmatrix){
+    MatrixTemplate* operator=(const MatrixTemplate& rmatrix){
         if(this!=&rmatrix){
             rows=rmatrix.rows;
             columns=rmatrix.columns;
@@ -111,20 +111,20 @@ public:
                 }
             }
         }
-        return *this;
+        return this;
     }
 
-    MatrixTemplate transposedMatrix(){
+    MatrixTemplate* transposedMatrix(){
         MatrixTemplate<T>transmat(columns,rows);
         for(int i=0;i<rows;i++){
             for(int j=0;j<columns;j++){
                 transmat.matrix[j*transmat.columns+i]=this->matrix[i*columns+j];
             }
         }
-        return transmat;
+        return &transmat;
     }
 
-    MatrixTemplate operator+(const MatrixTemplate& rmatrix){
+    MatrixTemplate* operator+(const MatrixTemplate& rmatrix){
         if(rows!=rmatrix.rows || columns!=rmatrix.columns)
             throw std::logic_error("Le dimensioni delle due matrici non coincidono");
         MatrixTemplate<T>matsum(rows,columns);
@@ -133,10 +133,10 @@ public:
                 matsum.matrix[i*columns+j]=this->matrix[i*columns+j]+rmatrix.matrix[i*columns+j];
             }
         }
-        return matsum;
+        return &matsum;
     }
 
-    MatrixTemplate operator+=(const MatrixTemplate& rmatrix){
+    MatrixTemplate* operator+=(const MatrixTemplate& rmatrix){
         if(rows!=rmatrix.rows || columns!=rmatrix.columns)
             throw std::logic_error("Le dimensioni delle due matrici non coincidono");
         for(int i=0;i<rows;i++){
@@ -144,7 +144,7 @@ public:
                 this->matrix[i*columns+j]+=rmatrix.matrix[i*columns+j];
             }
         }
-        return *this;
+        return this;
     }
 
     bool operator==(const MatrixTemplate& rmatrix){
@@ -168,7 +168,7 @@ public:
         return a==b;
     }
 
-    MatrixTemplate operator-(const MatrixTemplate& rmatrix){
+    MatrixTemplate* operator-(const MatrixTemplate& rmatrix){
         if(rows!=rmatrix.rows || columns!=rmatrix.columns)
             throw std::logic_error("Le dimensioni delle due matrici non coincidono");
         MatrixTemplate<T>matsub(rows,columns);
@@ -177,10 +177,10 @@ public:
                 matsub.matrix[i*columns+j]=matrix[i*columns+j]-rmatrix.matrix[i*columns+j];
             }
         }
-        return matsub;
+        return &matsub;
     }
 
-    MatrixTemplate operator-=(const MatrixTemplate& rmatrix){
+    MatrixTemplate* operator-=(const MatrixTemplate& rmatrix){
         if(rows!=rmatrix.rows || columns!=rmatrix.columns)
             throw std::logic_error("Le dimensioni delle due matrici non coincidono");
         for(int i=0;i<rows;i++){
@@ -188,10 +188,10 @@ public:
                 matrix[i*columns+j]-=rmatrix.matrix[i*columns+j];
             }
         }
-        return *this;
+        return this;
     }
 
-    MatrixTemplate operator*(const MatrixTemplate& rmatrix){
+    MatrixTemplate* operator*(const MatrixTemplate& rmatrix){
         if(columns!=rmatrix.rows)
             throw std::logic_error("Il numero di colonne della prima matrice deve essere uguale al numero di righe della seconda matrice");
         MatrixTemplate<T>matmult(rows,rmatrix.columns);
@@ -202,20 +202,20 @@ public:
                 }
             }
         }
-        return matmult;
+        return &matmult;
     }
 
-    MatrixTemplate operator*(const T& num){
+    MatrixTemplate* operator*(const T& num){
         MatrixTemplate<T>matmult(rows,columns);
         for(int i=0;i<rows;i++){
             for(int j=0;j<columns;j++){
                 matmult.matrix[i*columns+j]=num*matrix[i*columns+j];
             }
         }
-        return matmult;
+        return &matmult;
     }
 
-    MatrixTemplate elMult(const MatrixTemplate& rmatrix){
+    MatrixTemplate* elMult(const MatrixTemplate& rmatrix){
         if(rows!=rmatrix.rows || columns!=rmatrix.columns)
             throw std::logic_error("Le dimensioni delle due matrici non coincidono");
         MatrixTemplate<T>elmult(rows,columns);
@@ -224,10 +224,10 @@ public:
                 elmult.matrix[i*columns+j]=matrix[i*columns+j]*rmatrix.matrix[i*columns+j];
             }
         }
-        return elmult;
+        return &elmult;
     }
 
-    MatrixTemplate operator^(const int& a){
+    MatrixTemplate* operator^(const int& a){
         if(a<1)
             throw std::logic_error("L'esponente deve essere un intero maggiore di 0");
         MatrixTemplate<T>matpow(rows,columns);
@@ -235,10 +235,10 @@ public:
         for(int i=1;i<a;i++){
             matpow=matpow*(*this);
         }
-        return matpow;
+        return &matpow;
     }
 
-    MatrixTemplate elPow(const int& a){
+    MatrixTemplate* elPow(const int& a){
         if(a<1)
             throw std::logic_error("L'esponente deve essere un intero maggiore di 0");
         MatrixTemplate<T>elpow(rows,columns);
@@ -247,7 +247,7 @@ public:
                 elpow.matrix[i*columns+j]=pow(this->matrix[i*columns+j],a);
             }
         }
-        return elpow;
+        return &elpow;
     }
 
     void print(){
@@ -330,17 +330,17 @@ public:
         throw std::out_of_range("Impossibile calcolare norma 2");
     }
 
-    MatrixTemplate ones(){
+    MatrixTemplate* ones(){
         MatrixTemplate<T>ones(rows,columns);
         for(int i=0;i<rows;i++){
             for(int j=0;j<columns;j++){
                 ones.matrix[i*columns+j]=1;
             }
         }
-        return ones;
+        return &ones;
     }
 
-    MatrixTemplate identity(){
+    MatrixTemplate* identity(){
         MatrixTemplate<T>identity(rows,columns);
         for(int i=0;i<rows;i++){
             for(int j=0;j<columns;j++){
@@ -350,10 +350,10 @@ public:
                     identity.matrix[i*columns+j]=0;
             }
         }
-        return identity;
+        return &identity;
     }
 
-    MatrixTemplate diag(){
+    MatrixTemplate* diag(){
         if(rows!=columns)
             throw std::logic_error("La matrice deve essere quadrata");
         MatrixTemplate<T> diag(rows,columns);
@@ -365,10 +365,10 @@ public:
                     diag.matrix[i*columns+j]=0;
             }
         }
-        return diag;
+        return &diag;
     }
 
-    MatrixTemplate diagVect(){
+    MatrixTemplate* diagVect(){
         if(rows!=columns)
             throw std::logic_error("La matrice deve essere quadrata per estrarne la diagonale");
         MatrixTemplate<T> diagvect(1,columns);
@@ -378,10 +378,10 @@ public:
                     diagvect.matrix[i]=this->matrix[i*columns+j];
             }
         }
-        return diagvect;
+        return &diagvect;
     }
 
-    MatrixTemplate upperTriangular(){
+    MatrixTemplate* upperTriangular(){
         if(rows!=columns)
             throw std::logic_error("La matrice deve essere quadrata");
         MatrixTemplate<T>upperT(rows,columns);
@@ -393,10 +393,10 @@ public:
                     upperT.matrix[i*columns+j]=0;
             }
         }
-        return upperT;
+        return &upperT;
     }
 
-    MatrixTemplate lowerTriangular(){
+    MatrixTemplate* lowerTriangular(){
         if(rows!=columns)
             throw std::logic_error("La matrice deve essere quadrata");
         MatrixTemplate<T>lowerT(rows,columns);
@@ -408,7 +408,7 @@ public:
                     lowerT.matrix[i*columns+j]=0;
             }
         }
-        return lowerT;
+        return &lowerT;
     }
 private:
     T* matrix;
