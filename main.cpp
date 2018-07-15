@@ -13,4 +13,6 @@ int main() {
     Mat1->setValue(2,0,5);
     Mat1->setValue(2,1,10);
     Mat1->setValue(2,2,-5);
+    auto Mat2 = Mat1->transposedMatrix();
+    Mat2.print();
 }
