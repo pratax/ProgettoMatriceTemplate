@@ -14,14 +14,14 @@ template<typename T>
 class MatrixTemplate{
 public:
     MatrixTemplate(int r, int c):rows(r),columns(c){
-        if(rows<0)
-            rows=0;
-        if(columns<0)
-            columns=0;
+        if(rows<1)
+            rows=1;
+        if(columns<1)
+            columns=1;
         this->matrix = new T[rows*columns];
-        for(int i=0;i<rows;i++){
-            for(int j=0;j<columns;j++){
-                this->matrix[i*columns+j]=0;
+        for(int i=1;i<=rows;i++){
+            for(int j=1;j<=columns;j++){
+                this->matrix[(i-1)*columns+(j-1)]=0;
             }
         }
     };
@@ -40,51 +40,51 @@ public:
     }
 
     MatrixTemplate selectRow(int r){
-        if(r<0)
-            throw std::out_of_range("Il numero della riga da estrarre non può essere minore di 0");
-        if(r>=rows)
+        if(r<1)
+            throw std::out_of_range("Il numero della riga da estrarre non può essere minore di 1");
+        if(r>rows)
             throw std::out_of_range("Il numero della riga da estrare supera le dimensioni della matrice");
         MatrixTemplate<T> tmpmat(1,columns);
-        for(int j=0;j<columns;j++){
-            tmpmat.matrix[j]=this->matrix[r*columns+j];
+        for(int j=1;j<=columns;j++){
+            tmpmat.matrix[j-1]=this->matrix[(r-1)*columns+(j-1)];
         }
         return tmpmat;
     }
 
     MatrixTemplate selectColumn(int c){
-        if(c<0)
-            throw std::out_of_range("Il numero della colonna da estrarre non può essere minore di 0");
-        if(c>=columns)
+        if(c<1)
+            throw std::out_of_range("Il numero della colonna da estrarre non può essere minore di 1");
+        if(c>columns)
             throw std::out_of_range("Il numero della colonna da estrarre supera le dimensioni della matrice");
         MatrixTemplate<T> tmpmat(rows,1);
-        for(int i=0;i<rows;i++){
-            tmpmat.matrix[i]=this->matrix[i*columns+c];
+        for(int i=1;i<=rows;i++){
+            tmpmat.matrix[i-1]=this->matrix[(i-1)*columns+(c-1)];
         }
         return tmpmat;
     }
 
     T getValue(int r, int c) const {
-        if(r<0)
-            throw std::out_of_range("Il numero della riga non può essere minore di 0");
-        if(r>=rows)
+        if(r<1)
+            throw std::out_of_range("Il numero della riga non può essere minore di 1");
+        if(r>rows)
             throw std::out_of_range("Il numero della riga supera le dimensioni della matrice");
-        if(c<0)
-            throw std::out_of_range("Il numero della colonna non può essere minore di 0");
-        if(c>=columns)
+        if(c<1)
+            throw std::out_of_range("Il numero della colonna non può essere minore di 1");
+        if(c>columns)
             throw std::out_of_range("Il numero della colonna supera le dimensioni della matrice");
-        return this->matrix[r*columns+c];
+        return this->matrix[(r-1)*columns+(c-1)];
     }
 
     void setValue(int r, int c, T value) {
-        if(r<0)
-            throw std::out_of_range("Il numero della riga non può essere minore di 0");
-        if(r>=rows)
+        if(r<1)
+            throw std::out_of_range("Il numero della riga non può essere minore di 1");
+        if(r>rows)
             throw std::out_of_range("Il numero della riga supera le dimensioni della matrice");
-        if(c<0)
-            throw std::out_of_range("Il numero della colonna non può essere minore di 0");
-        if(c>=columns)
+        if(c<1)
+            throw std::out_of_range("Il numero della colonna non può essere minore di 1");
+        if(c>columns)
             throw std::out_of_range("Il numero della colonna supera le dimensioni della matrice");
-        this->matrix[r*columns+c]=value;
+        this->matrix[(r-1)*columns+(c-1)]=value;
     }
 
     MatrixTemplate(const MatrixTemplate& rmatrix){
