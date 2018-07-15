@@ -33,8 +33,8 @@ TEST(MatrixTemplate,CopyConstructor){
 }
 
 TEST(MatrixTemplate,SelectRow){
-    MatrixFactory<double>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    MatrixFactory<double>* doubleFactory;
+    auto Mat1 = doubleFactory->createMatrixTemplate(3,3);
     Mat1->setValue(1,1,1.3);
     Mat1->setValue(1,2,2.5);
     Mat1->setValue(1,3,4.3);
@@ -111,4 +111,24 @@ TEST(MatrixTemplate,OperatorAssignement){
     ASSERT_EQ(Mat1->getRows(),Mat2.getRows());
     ASSERT_EQ(Mat1->getColumns(),Mat2.getColumns());
 }
+
+TEST(MatrixTemplate,TransposedMatrix){
+    MatrixFactory<float>* floatFactory;
+    auto Mat1 = floatFactory->createMatrixTemplate(3,3);
+    Mat1->setValue(1,1,1.5);
+    Mat1->setValue(1,2,2);
+    Mat1->setValue(1,3,3.2);
+    Mat1->setValue(2,2,1.8);
+    Mat1->setValue(3,1,4.4);
+    Mat1->setValue(3,2,5);
+    Mat1->setValue(3,3,8.7);
+    auto Mat2 = Mat1->transposedMatrix();
+    ASSERT_EQ(1.5,Mat2.getValue(1,1));
+    ASSERT_EQ(2,Mat2.getValue(2,1));
+    ASSERT_EQ(5,Mat2.getValue(2,3));
+    ASSERT_EQ(3,Mat2.getRows());
+    ASSERT_EQ(3,Mat2.getColumns());
+}
+
+
 
