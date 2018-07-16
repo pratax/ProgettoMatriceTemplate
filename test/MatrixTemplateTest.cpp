@@ -256,3 +256,30 @@ TEST(MatrixTemplate,OperatorProduct){
     ASSERT_EQ(Mat4.getValue(1,3),15);
     ASSERT_THROW(*Mat1 * *Mat3,std::logic_error);
 }
+
+TEST(MatrixTemplate,ElMult){
+    MatrixFactory<int>* intFactory;
+    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    Mat1->setValue(1,1,5);
+    Mat1->setValue(1,2,3);
+    Mat1->setValue(1,3,2);
+    Mat1->setValue(2,2,8);
+    Mat1->setValue(3,1,4);
+    Mat1->setValue(3,2,4);
+    Mat1->setValue(3,3,7);
+    auto Mat2 = intFactory->createMatrixTemplate(3,3);
+    auto Mat3 = intFactory->createMatrixTemplate(2,2);
+    Mat2->setValue(1,1,1);
+    Mat2->setValue(1,2,2);
+    Mat2->setValue(1,3,3);
+    Mat2->setValue(2,2,5);
+    Mat2->setValue(3,1,8);
+    Mat2->setValue(3,2,4);
+    Mat2->setValue(3,3,0);
+    auto Mat4 = Mat1->elMult(*Mat2);
+    ASSERT_EQ(Mat4.getRows(),3);
+    ASSERT_EQ(Mat4.getColumns(),3);
+    ASSERT_EQ(Mat4.getValue(1,1),5);
+    ASSERT_EQ(Mat4.getValue(1,3),6);
+    ASSERT_THROW(Mat1->elMult(*Mat3),std::logic_error);
+}
