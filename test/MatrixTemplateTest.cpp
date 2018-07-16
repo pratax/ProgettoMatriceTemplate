@@ -46,8 +46,8 @@ TEST(MatrixTemplate,SelectRow){
     ASSERT_EQ(8.5,MatRow.getValue(1,1));
     ASSERT_EQ(1.1,MatRow.getValue(1,2));
     ASSERT_EQ(5.4,MatRow.getValue(1,3));
-    ASSERT_THROW(Mat1->selectRow(0),std::out_of_range); //FIXME assert_throw
-    ASSERT_ANY_THROW(Mat1->selectRow(4));
+    ASSERT_THROW(Mat1->selectRow(0),std::out_of_range);
+    ASSERT_THROW(Mat1->selectRow(4),std::out_of_range);
 }
 
 TEST(MatrixTemplate,SelectColumn){
@@ -64,8 +64,8 @@ TEST(MatrixTemplate,SelectColumn){
     ASSERT_EQ(5,MatColumn.getValue(1,1));
     ASSERT_EQ(0,MatColumn.getValue(2,1));
     ASSERT_EQ(10,MatColumn.getValue(3,1));
-    ASSERT_ANY_THROW(Mat1->selectColumn(0));
-    ASSERT_ANY_THROW(Mat1->selectColumn(4));
+    ASSERT_THROW(Mat1->selectColumn(0),std::out_of_range);
+    ASSERT_THROW(Mat1->selectColumn(4),std::out_of_range);
 }
 
 TEST(MatrixTemplate,GetValue){
@@ -79,8 +79,8 @@ TEST(MatrixTemplate,GetValue){
     Mat1->setValue(3,2,10);
     Mat1->setValue(3,3,-5);
     ASSERT_EQ(1,Mat1->getValue(1,1));
-    ASSERT_ANY_THROW(Mat1->getValue(0,0));
-    ASSERT_ANY_THROW(Mat1->getValue(4,5));
+    ASSERT_THROW(Mat1->getValue(0,0),std::out_of_range);
+    ASSERT_THROW(Mat1->getValue(4,5),std::out_of_range);
 }
 
 TEST(MatrixTemplate,SetValue){
@@ -93,7 +93,7 @@ TEST(MatrixTemplate,SetValue){
     Mat1->setValue(3,1,5);
     Mat1->setValue(3,2,10);
     Mat1->setValue(3,3,-5);
-    ASSERT_ANY_THROW(Mat1->setValue(5,2,10));
+    ASSERT_THROW(Mat1->setValue(5,2,10),std::out_of_range);
 }
 
 TEST(MatrixTemplate,OperatorAssignement){
@@ -128,5 +128,30 @@ TEST(MatrixTemplate,TransposedMatrix){
     ASSERT_FLOAT_EQ(5.4,Mat2.getValue(2,3));
     ASSERT_EQ(3,Mat2.getRows());
     ASSERT_EQ(3,Mat2.getColumns());
+}
+
+TEST(MatrixTemplate,OperatorPlus){
+    MatrixFactory<int>* intFactory;
+    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    Mat1->setValue(1,1,5);
+    Mat1->setValue(1,2,3);
+    Mat1->setValue(1,3,2);
+    Mat1->setValue(2,2,8);
+    Mat1->setValue(3,1,4);
+    Mat1->setValue(3,2,4);
+    Mat1->setValue(3,3,7);
+    auto Mat2 = intFactory->createMatrixTemplate(3,3);
+    auto Mat3 = intFactory->createMatrixTemplate(2,2);
+    Mat2->setValue(1,1,1);
+    Mat2->setValue(1,2,2);
+    Mat2->setValue(1,3,3);
+    Mat2->setValue(2,2,5);
+    Mat2->setValue(3,1,8);
+    Mat2->setValue(3,2,4);
+    Mat2->setValue(3,3,0);
+    auto Mat4 = *Mat1 + *Mat2;
+    ASSERT_EQ(Mat4.getValue(1,1),6);
+    ASSERT_EQ(Mat4.getValue(1,3),5);
+    ASSERT_THROW(*Mat1+*Mat3,std::logic_error);
 }
 

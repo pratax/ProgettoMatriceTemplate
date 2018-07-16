@@ -105,7 +105,7 @@ public:
             if(this->matrix!= nullptr)
                 delete[] this->matrix;
             if(rmatrix.matrix != nullptr){
-                this->matrix = new MatrixTemplate(rmatrix);//FIXME memory leak
+                this->matrix = new MatrixTemplate(rmatrix);
                 for(int i=0;i<rows;i++){
                     for(int j=0;j<columns;j++){
                         this->matrix[i*columns+j]=rmatrix.matrix[i*columns+j];
