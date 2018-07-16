@@ -241,8 +241,8 @@ public:
     }
 
     MatrixTemplate elPow(const int& a){
-        if(a<1)
-            throw std::logic_error("L'esponente deve essere un intero maggiore di 0");
+        if(a<0)
+            throw std::logic_error("L'esponente deve essere un intero maggiore o uguale a 0");
         MatrixTemplate<T>elpow(rows,columns);
         for(int i=0;i<rows;i++){
             for(int j=0;j<columns;j++){
