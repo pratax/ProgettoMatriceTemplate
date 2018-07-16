@@ -155,3 +155,28 @@ TEST(MatrixTemplate,OperatorPlus){
     ASSERT_THROW(*Mat1+*Mat3,std::logic_error);
 }
 
+TEST(MatrixTemplate,OperatorPlusEqual){
+    MatrixFactory<int>* intFactory;
+    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    Mat1->setValue(1,1,5);
+    Mat1->setValue(1,2,3);
+    Mat1->setValue(1,3,2);
+    Mat1->setValue(2,2,8);
+    Mat1->setValue(3,1,4);
+    Mat1->setValue(3,2,4);
+    Mat1->setValue(3,3,7);
+    auto Mat2 = intFactory->createMatrixTemplate(3,3);
+    auto Mat3 = intFactory->createMatrixTemplate(2,2);
+    Mat2->setValue(1,1,1);
+    Mat2->setValue(1,2,2);
+    Mat2->setValue(1,3,3);
+    Mat2->setValue(2,2,5);
+    Mat2->setValue(3,1,8);
+    Mat2->setValue(3,2,4);
+    Mat2->setValue(3,3,0);
+    *Mat1 += *Mat2;
+    ASSERT_EQ(Mat1->getValue(1,1),6);
+    ASSERT_EQ(Mat1->getValue(1,3),5);
+    ASSERT_THROW(*Mat1+=*Mat3,std::logic_error);
+}
+
