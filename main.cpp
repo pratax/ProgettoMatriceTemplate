@@ -12,6 +12,7 @@ int main() {
     Mat1->setValue(3,1,4.4);
     Mat1->setValue(3,2,5.6);
     Mat1->setValue(3,3,8.7);
-    auto Mat2 = Mat1->transposedMatrix();
-    Mat2.print();
+    auto Mat2 = *Mat1;
+    bool i = Mat2==*Mat1;
+    std::cout<<i;
 }

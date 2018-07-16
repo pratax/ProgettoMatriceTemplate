@@ -46,7 +46,7 @@ TEST(MatrixTemplate,SelectRow){
     ASSERT_EQ(8.5,MatRow.getValue(1,1));
     ASSERT_EQ(1.1,MatRow.getValue(1,2));
     ASSERT_EQ(5.4,MatRow.getValue(1,3));
-    ASSERT_ANY_THROW(Mat1->selectRow(0));
+    ASSERT_THROW(Mat1->selectRow(0),std::out_of_range); //FIXME assert_throw
     ASSERT_ANY_THROW(Mat1->selectRow(4));
 }
 
@@ -129,6 +129,4 @@ TEST(MatrixTemplate,TransposedMatrix){
     ASSERT_EQ(3,Mat2.getRows());
     ASSERT_EQ(3,Mat2.getColumns());
 }
-
-
 

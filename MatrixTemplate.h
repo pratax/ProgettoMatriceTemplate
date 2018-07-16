@@ -103,13 +103,17 @@ public:
             rows=rmatrix.rows;
             columns=rmatrix.columns;
             if(this->matrix!= nullptr)
-                this->matrix= nullptr;
-            this->matrix = new T[rows*columns];
-            for(int i=0;i<rows;i++){
-                for(int j=0;j<columns;j++){
-                    this->matrix[i*columns+j]=rmatrix.matrix[i*columns+j];
+                delete[] this->matrix;
+            if(rmatrix.matrix != nullptr){
+                this->matrix = new MatrixTemplate(rmatrix);//FIXME memory leak
+                for(int i=0;i<rows;i++){
+                    for(int j=0;j<columns;j++){
+                        this->matrix[i*columns+j]=rmatrix.matrix[i*columns+j];
+                    }
                 }
             }
+            else
+                this->matrix=nullptr;
         }
         return *this;
     }
@@ -152,7 +156,7 @@ public:
             return false;
         for(int i=0;i<rows;i++){
             for(int j=0;j<columns;j++){
-                if(!(areEqual(this->matrix[i*columns+j],rmatrix.matrix[i*columns+j]))){
+                if(this->matrix[i*columns+j]!=rmatrix.matrix[i*columns+j]){
                     return false;
                 }
             }
@@ -160,13 +164,11 @@ public:
         return true;
     }
 
+
     bool operator!=(const MatrixTemplate& rmatrix){
         return !(*this==rmatrix);
     }
 
-    bool areEqual(T a, T b){
-        return a==b;
-    }
 
     MatrixTemplate operator-(const MatrixTemplate& rmatrix){
         if(rows!=rmatrix.rows || columns!=rmatrix.columns)
