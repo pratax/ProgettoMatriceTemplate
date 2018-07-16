@@ -322,3 +322,24 @@ TEST(MatrixTemplate,ElPow){
     ASSERT_EQ(Mat2.getValue(3,3),1);
     ASSERT_THROW((*Mat1).elPow(-1),std::logic_error);
 }
+
+TEST(MatrixTemplate,NormaDue){
+    MatrixFactory<int>* intFactory;
+    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    Mat1->setValue(1,1,5);
+    Mat1->setValue(1,2,3);
+    Mat1->setValue(1,3,2);
+    Mat1->setValue(2,2,8);
+    Mat1->setValue(3,1,4);
+    Mat1->setValue(3,2,4);
+    Mat1->setValue(3,3,7);
+    ASSERT_THROW(Mat1->norma2(),std::logic_error);
+    auto Mat2 = intFactory->createMatrixTemplate(1,5);
+    Mat2->setValue(1,1,2);
+    Mat2->setValue(1,2,5);
+    Mat2->setValue(1,3,7);
+    Mat2->setValue(1,4,2);
+    Mat2->setValue(1,5,6);
+    auto norma2 = Mat2->norma2();
+    ASSERT_DOUBLE_EQ(norma2,sqrt(118));
+}
