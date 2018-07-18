@@ -398,6 +398,30 @@ TEST(MatrixTemplate,NormaInf){
     ASSERT_EQ(21,Mat3->normainf());
 }
 
+TEST(MatrixTemplate,NormaUno){
+    MatrixFactory<int>* intFactory;
+    auto Mat1 = intFactory->createMatrixTemplate(1,3);
+    auto Mat2 = intFactory->createMatrixTemplate(3,1);
+    Mat1->setValue(1,1,3);
+    Mat1->setValue(1,2,6);
+    Mat1->setValue(1,3,4);
+    Mat2->setValue(1,1,2);
+    Mat2->setValue(2,1,6);
+    Mat2->setValue(3,1,8);
+    ASSERT_EQ(13,Mat1->norma1());
+    ASSERT_EQ(16,Mat2->norma1());
+    auto Mat3 = intFactory->createMatrixTemplate(3,3);
+    Mat3->setValue(1,1,4);
+    Mat3->setValue(1,2,6);
+    Mat3->setValue(1,3,7);
+    Mat3->setValue(2,1,8);
+    Mat3->setValue(2,2,-9);
+    Mat3->setValue(2,3,-4);
+    Mat3->setValue(3,1,-1);
+    Mat3->setValue(3,3,5);
+    ASSERT_EQ(16,Mat3->norma1());
+}
+
 TEST(MatrixTemplate,NormaDue){
     MatrixFactory<int>* intFactory;
     auto Mat1 = intFactory->createMatrixTemplate(3,3);
