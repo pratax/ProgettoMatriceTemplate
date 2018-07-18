@@ -417,25 +417,5 @@ private:
     int rows,columns;
 };
 
-template<typename T>
-bool areEqual(T a, T b){
-    return a==b;
-}
-
-template<>
-bool areEqual<float>(float a, float b){
-    float diff = a-b;
-    if(std::abs(diff)<=FLT_EPSILON)
-        return true;
-    return false;
-}
-
-template<>
-bool areEqual<double>(double a, double b){
-    double diff = a-b;
-    if(std::abs(diff)<=FLT_EPSILON)
-        return true;
-    return false;
-}
 
 #endif //PROGETTOMATRICITEMPLATE_MATRICETEMPLATE_H

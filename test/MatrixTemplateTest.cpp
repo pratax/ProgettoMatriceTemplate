@@ -442,3 +442,18 @@ TEST(MatrixTemplate,NormaDue){
     auto norma2 = Mat2->norma2();
     ASSERT_DOUBLE_EQ(norma2,sqrt(118));
 }
+
+TEST(MatrixTemplate,Ones){
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(2,3);
+    auto Mat2 = Mat1->ones();
+    ASSERT_EQ(2,Mat2.getRows());
+    ASSERT_EQ(3,Mat2.getColumns());
+    for(int i=1;i<=Mat2.getRows();i++){
+        for(int j=1;j<=Mat2.getColumns();j++){
+            ASSERT_EQ(1,Mat2.getValue(i,j));
+        }
+    }
+}
+
+
