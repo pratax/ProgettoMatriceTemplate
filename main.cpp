@@ -1,4 +1,3 @@
-#include <iostream>
 #include "MatrixTemplate.h"
 #include "MatrixFactory.h"
 

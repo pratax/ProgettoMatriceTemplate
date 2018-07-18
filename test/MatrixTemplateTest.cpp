@@ -491,3 +491,20 @@ TEST(MatrixTemplate,Diag){
     ASSERT_EQ(MatDiag.getValue(2,2),8);
 }
 
+TEST(MatrixTemplate,DiagVect){
+    MatrixFactory<int>* intFactory;
+    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    auto Mat2 = intFactory->createMatrixTemplate(1,3);
+    Mat1->setValue(1,1,2);
+    Mat1->setValue(2,2,3);
+    Mat1->setValue(3,3,9);
+    Mat2->setValue(1,2,7);
+    ASSERT_THROW(Mat2->diagVect(),std::logic_error);
+    auto MatVect = Mat1->diagVect();
+    ASSERT_EQ(MatVect.getRows(),1);
+    ASSERT_EQ(MatVect.getColumns(),3);
+    ASSERT_EQ(MatVect.getValue(1,1),2);
+    ASSERT_EQ(MatVect.getValue(1,2),3);
+    ASSERT_EQ(MatVect.getValue(1,3),9);
+}
+
