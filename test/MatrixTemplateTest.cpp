@@ -471,3 +471,23 @@ TEST(MatrixTemplate,Identity){
         }
     }
 }
+
+TEST(MatrixTemplate,Diag){
+    MatrixFactory<int>* intFactory;
+    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    Mat1->setValue(1,1,5);
+    Mat1->setValue(1,2,3);
+    Mat1->setValue(1,3,2);
+    Mat1->setValue(2,2,8);
+    Mat1->setValue(3,1,4);
+    Mat1->setValue(3,2,4);
+    Mat1->setValue(3,3,7);
+    auto Mat2 = intFactory->createMatrixTemplate(1,3);
+    ASSERT_THROW(Mat2->diag(),std::logic_error);
+    auto MatDiag = Mat1->diag();
+    ASSERT_EQ(MatDiag.getValue(1,3),0);
+    ASSERT_EQ(MatDiag.getValue(3,1),0);
+    ASSERT_EQ(MatDiag.getValue(1,1),5);
+    ASSERT_EQ(MatDiag.getValue(2,2),8);
+}
+
