@@ -180,6 +180,42 @@ TEST(MatrixTemplate,OperatorPlusEqual){
     ASSERT_THROW(*Mat1+=*Mat3,std::logic_error);
 }
 
+TEST(MatrixTemplate,OperatorEquality){
+    MatrixFactory<float>* floatFactory;
+    auto Mat1 = floatFactory->createMatrixTemplate(3,3);
+    Mat1->setValue(1,1,2.3);
+    Mat1->setValue(1,2,5.6);
+    Mat1->setValue(1,3,3.1);
+    Mat1->setValue(2,1,7.4);
+    Mat1->setValue(2,2,8.9);
+    Mat1->setValue(2,3,9.9);
+    Mat1->setValue(3,1,3.4);
+    Mat1->setValue(3,2,1.1);
+    Mat1->setValue(3,3,0.2);
+    auto Mat2(*Mat1);
+    ASSERT_TRUE(*Mat1==Mat2);
+    Mat2.setValue(3,3,8.7);
+    ASSERT_FALSE(*Mat1==Mat2);
+}
+
+TEST(MatrixTemplate,OperatorDisequality){
+    MatrixFactory<float>* floatFactory;
+    auto Mat1 = floatFactory->createMatrixTemplate(3,3);
+    Mat1->setValue(1,1,2.3);
+    Mat1->setValue(1,2,5.6);
+    Mat1->setValue(1,3,3.1);
+    Mat1->setValue(2,1,7.4);
+    Mat1->setValue(2,2,8.9);
+    Mat1->setValue(2,3,9.9);
+    Mat1->setValue(3,1,3.4);
+    Mat1->setValue(3,2,1.1);
+    Mat1->setValue(3,3,0.2);
+    auto Mat2(*Mat1);
+    ASSERT_FALSE(*Mat1!=Mat2);
+    Mat2.setValue(3,3,8.7);
+    ASSERT_TRUE(*Mat1!=Mat2);
+}
+
 TEST(MatrixTemplate,OperatorMinus){
     MatrixFactory<int>* intFactory;
     auto Mat1 = intFactory->createMatrixTemplate(3,3);
@@ -230,7 +266,7 @@ TEST(MatrixTemplate,OperatorMinusEqual){
     ASSERT_THROW(*Mat1+=*Mat3,std::logic_error);
 }
 
-TEST(MatrixTemplate,OperatorProduct){
+TEST(MatrixTemplate,OperatorProductMatrix){
     MatrixFactory<int>* intFactory;
     auto Mat1 = intFactory->createMatrixTemplate(3,3);
     Mat1->setValue(1,1,5);
@@ -255,6 +291,21 @@ TEST(MatrixTemplate,OperatorProduct){
     ASSERT_EQ(Mat4.getValue(1,1),21);
     ASSERT_EQ(Mat4.getValue(1,3),15);
     ASSERT_THROW(*Mat1 * *Mat3,std::logic_error);
+}
+
+TEST(MatrixTemplate,OperatorProductNumber){
+    MatrixFactory<int>* intFactory;
+    auto Mat1 = intFactory->createMatrixTemplate(2,3);
+    Mat1->setValue(1,1,2);
+    Mat1->setValue(1,2,5);
+    Mat1->setValue(1,3,4);
+    Mat1->setValue(2,1,7);
+    Mat1->setValue(2,2,9);
+    Mat1->setValue(2,3,1);
+    auto Mat2 = (*Mat1)*3;
+    ASSERT_EQ(6,Mat2.getValue(1,1));
+    ASSERT_EQ(15,Mat2.getValue(1,2));
+    ASSERT_EQ(12,Mat2.getValue(1,3));
 }
 
 TEST(MatrixTemplate,ElMult){

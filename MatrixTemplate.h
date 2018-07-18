@@ -98,11 +98,11 @@ public:
         }
     }
 
-    MatrixTemplate operator=(const MatrixTemplate& rmatrix){
+    MatrixTemplate& operator=(const MatrixTemplate& rmatrix){
         if(this!=&rmatrix){
             rows=rmatrix.rows;
             columns=rmatrix.columns;
-            if(this->matrix!= nullptr)
+            if(this->matrix != nullptr)
                 delete[] this->matrix;
             if(rmatrix.matrix != nullptr){
                 this->matrix = new T[rows*columns];
