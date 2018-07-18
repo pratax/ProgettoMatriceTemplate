@@ -508,3 +508,29 @@ TEST(MatrixTemplate,DiagVect){
     ASSERT_EQ(MatVect.getValue(1,3),9);
 }
 
+TEST(MatrixTemplate,UpperTriangular){
+    MatrixFactory<int>* intFactory;
+    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    auto Mat2 = intFactory->createMatrixTemplate(3,1);
+    Mat1->setValue(1,1,5);
+    Mat1->setValue(1,2,3);
+    Mat1->setValue(1,3,2);
+    Mat1->setValue(2,1,6);
+    Mat1->setValue(2,2,8);
+    Mat1->setValue(2,3,1);
+    Mat1->setValue(3,1,4);
+    Mat1->setValue(3,2,4);
+    Mat1->setValue(3,3,7);
+    ASSERT_THROW(Mat2->upperTriangular(),std::logic_error);
+    auto Mat3 = Mat1->upperTriangular();
+    for(int i=1;i<=Mat3.getRows();i++){
+        for(int j=1;j<=Mat3.getColumns();j++){
+            if(i>j)
+                ASSERT_EQ(Mat3.getValue(i,j),0);
+        }
+    }
+    ASSERT_EQ(5,Mat3.getValue(1,1));
+    ASSERT_EQ(1,Mat3.getValue(2,3));
+    ASSERT_EQ(3,Mat3.getValue(1,2));
+}
+
