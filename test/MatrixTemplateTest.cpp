@@ -456,4 +456,18 @@ TEST(MatrixTemplate,Ones){
     }
 }
 
-
+TEST(MatrixTemplate,Identity){
+    MatrixFactory<int>* intFactory;
+    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    auto Mat2 = intFactory->createMatrixTemplate(2,3);
+    ASSERT_THROW(Mat2->identity(),std::logic_error);
+    auto Mat3 = Mat1->identity();
+    for(int i=1;i<=Mat3.getRows();i++){
+        for(int j=1;j<=Mat3.getColumns();j++){
+            if(i==j)
+                ASSERT_EQ(1,Mat3.getValue(i,j));
+            else
+                ASSERT_EQ(0,Mat3.getValue(i,j));
+        }
+    }
+}

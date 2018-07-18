@@ -343,6 +343,8 @@ public:
     }
 
     MatrixTemplate identity(){
+        if(rows != columns)
+            throw std::logic_error("La matrice deve essere quadrata");
         MatrixTemplate<T>identity(rows,columns);
         for(int i=0;i<rows;i++){
             for(int j=0;j<columns;j++){
