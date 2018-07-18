@@ -2,8 +2,8 @@
 #include "MatrixFactory.h"
 
 int main() {
-    MatrixFactory<float>* floatFactory;
-    auto Mat1 = floatFactory->createMatrixTemplate(3,3);
+    MatrixFactory<float> floatFactory;
+    auto Mat1 = floatFactory.createMatrixTemplate(3,3);
     Mat1->setValue(1,1,1.5);
     Mat1->setValue(1,2,2.3);
     Mat1->setValue(1,3,3.2);

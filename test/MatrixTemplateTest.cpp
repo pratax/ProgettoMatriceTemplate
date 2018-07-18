@@ -6,18 +6,18 @@
 #include "../MatrixFactory.h"
 
 TEST(MatrixTemplate,DefaultConstructor){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(3,3);
     ASSERT_EQ(3,Mat1->getRows());
     ASSERT_EQ(3,Mat1->getColumns());
     ASSERT_EQ(0,Mat1->getValue(2,2));
-    auto Mat2 = intFactory->createMatrixTemplate(0,2);
+    auto Mat2 = intFactory.createMatrixTemplate(0,2);
     ASSERT_EQ(1,Mat2->getRows());
 }
 
 TEST(MatrixTemplate,CopyConstructor){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(3,3);
     Mat1->setValue(1,1,1);
     Mat1->setValue(1,2,5);
     Mat1->setValue(1,3,3);
@@ -33,8 +33,8 @@ TEST(MatrixTemplate,CopyConstructor){
 }
 
 TEST(MatrixTemplate,SelectRow){
-    MatrixFactory<double>* doubleFactory;
-    auto Mat1 = doubleFactory->createMatrixTemplate(3,3);
+    MatrixFactory<double> doubleFactory;
+    auto Mat1 = doubleFactory.createMatrixTemplate(3,3);
     Mat1->setValue(1,1,1.3);
     Mat1->setValue(1,2,2.5);
     Mat1->setValue(1,3,4.3);
@@ -51,8 +51,8 @@ TEST(MatrixTemplate,SelectRow){
 }
 
 TEST(MatrixTemplate,SelectColumn){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(3,3);
     Mat1->setValue(1,1,1);
     Mat1->setValue(1,2,5);
     Mat1->setValue(1,3,3);
@@ -69,8 +69,8 @@ TEST(MatrixTemplate,SelectColumn){
 }
 
 TEST(MatrixTemplate,GetValue){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(3,3);
     Mat1->setValue(1,1,1);
     Mat1->setValue(1,2,5);
     Mat1->setValue(1,3,3);
@@ -84,8 +84,8 @@ TEST(MatrixTemplate,GetValue){
 }
 
 TEST(MatrixTemplate,SetValue){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(3,3);
     Mat1->setValue(1,1,1);
     Mat1->setValue(1,2,5);
     Mat1->setValue(1,3,3);
@@ -97,8 +97,8 @@ TEST(MatrixTemplate,SetValue){
 }
 
 TEST(MatrixTemplate,OperatorAssignement){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(3,3);
     Mat1->setValue(1,1,1);
     Mat1->setValue(1,2,5);
     Mat1->setValue(1,3,3);
@@ -113,8 +113,8 @@ TEST(MatrixTemplate,OperatorAssignement){
 }
 
 TEST(MatrixTemplate,TransposedMatrix){
-    MatrixFactory<float>* floatFactory;
-    auto Mat1 = floatFactory->createMatrixTemplate(3,3);
+    MatrixFactory<float> floatFactory;
+    auto Mat1 = floatFactory.createMatrixTemplate(3,3);
     Mat1->setValue(1,1,1.5);
     Mat1->setValue(1,2,2.3);
     Mat1->setValue(1,3,3.2);
@@ -131,8 +131,8 @@ TEST(MatrixTemplate,TransposedMatrix){
 }
 
 TEST(MatrixTemplate,OperatorPlus){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(3,3);
     Mat1->setValue(1,1,5);
     Mat1->setValue(1,2,3);
     Mat1->setValue(1,3,2);
@@ -140,8 +140,8 @@ TEST(MatrixTemplate,OperatorPlus){
     Mat1->setValue(3,1,4);
     Mat1->setValue(3,2,4);
     Mat1->setValue(3,3,7);
-    auto Mat2 = intFactory->createMatrixTemplate(3,3);
-    auto Mat3 = intFactory->createMatrixTemplate(2,2);
+    auto Mat2 = intFactory.createMatrixTemplate(3,3);
+    auto Mat3 = intFactory.createMatrixTemplate(2,2);
     Mat2->setValue(1,1,1);
     Mat2->setValue(1,2,2);
     Mat2->setValue(1,3,3);
@@ -156,8 +156,8 @@ TEST(MatrixTemplate,OperatorPlus){
 }
 
 TEST(MatrixTemplate,OperatorPlusEqual){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(3,3);
     Mat1->setValue(1,1,5);
     Mat1->setValue(1,2,3);
     Mat1->setValue(1,3,2);
@@ -165,8 +165,8 @@ TEST(MatrixTemplate,OperatorPlusEqual){
     Mat1->setValue(3,1,4);
     Mat1->setValue(3,2,4);
     Mat1->setValue(3,3,7);
-    auto Mat2 = intFactory->createMatrixTemplate(3,3);
-    auto Mat3 = intFactory->createMatrixTemplate(2,2);
+    auto Mat2 = intFactory.createMatrixTemplate(3,3);
+    auto Mat3 = intFactory.createMatrixTemplate(2,2);
     Mat2->setValue(1,1,1);
     Mat2->setValue(1,2,2);
     Mat2->setValue(1,3,3);
@@ -181,8 +181,8 @@ TEST(MatrixTemplate,OperatorPlusEqual){
 }
 
 TEST(MatrixTemplate,OperatorEquality){
-    MatrixFactory<float>* floatFactory;
-    auto Mat1 = floatFactory->createMatrixTemplate(3,3);
+    MatrixFactory<float> floatFactory;
+    auto Mat1 = floatFactory.createMatrixTemplate(3,3);
     Mat1->setValue(1,1,2.3);
     Mat1->setValue(1,2,5.6);
     Mat1->setValue(1,3,3.1);
@@ -199,8 +199,8 @@ TEST(MatrixTemplate,OperatorEquality){
 }
 
 TEST(MatrixTemplate,OperatorDisequality){
-    MatrixFactory<float>* floatFactory;
-    auto Mat1 = floatFactory->createMatrixTemplate(3,3);
+    MatrixFactory<float> floatFactory;
+    auto Mat1 = floatFactory.createMatrixTemplate(3,3);
     Mat1->setValue(1,1,2.3);
     Mat1->setValue(1,2,5.6);
     Mat1->setValue(1,3,3.1);
@@ -217,8 +217,8 @@ TEST(MatrixTemplate,OperatorDisequality){
 }
 
 TEST(MatrixTemplate,OperatorMinus){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(3,3);
     Mat1->setValue(1,1,5);
     Mat1->setValue(1,2,3);
     Mat1->setValue(1,3,2);
@@ -226,8 +226,8 @@ TEST(MatrixTemplate,OperatorMinus){
     Mat1->setValue(3,1,4);
     Mat1->setValue(3,2,4);
     Mat1->setValue(3,3,7);
-    auto Mat2 = intFactory->createMatrixTemplate(3,3);
-    auto Mat3 = intFactory->createMatrixTemplate(2,2);
+    auto Mat2 = intFactory.createMatrixTemplate(3,3);
+    auto Mat3 = intFactory.createMatrixTemplate(2,2);
     Mat2->setValue(1,1,1);
     Mat2->setValue(1,2,2);
     Mat2->setValue(1,3,3);
@@ -242,8 +242,8 @@ TEST(MatrixTemplate,OperatorMinus){
 }
 
 TEST(MatrixTemplate,OperatorMinusEqual){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(3,3);
     Mat1->setValue(1,1,5);
     Mat1->setValue(1,2,3);
     Mat1->setValue(1,3,2);
@@ -251,8 +251,8 @@ TEST(MatrixTemplate,OperatorMinusEqual){
     Mat1->setValue(3,1,4);
     Mat1->setValue(3,2,4);
     Mat1->setValue(3,3,7);
-    auto Mat2 = intFactory->createMatrixTemplate(3,3);
-    auto Mat3 = intFactory->createMatrixTemplate(2,2);
+    auto Mat2 = intFactory.createMatrixTemplate(3,3);
+    auto Mat3 = intFactory.createMatrixTemplate(2,2);
     Mat2->setValue(1,1,1);
     Mat2->setValue(1,2,2);
     Mat2->setValue(1,3,3);
@@ -267,8 +267,8 @@ TEST(MatrixTemplate,OperatorMinusEqual){
 }
 
 TEST(MatrixTemplate,OperatorProductMatrix){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(3,3);
     Mat1->setValue(1,1,5);
     Mat1->setValue(1,2,3);
     Mat1->setValue(1,3,2);
@@ -276,8 +276,8 @@ TEST(MatrixTemplate,OperatorProductMatrix){
     Mat1->setValue(3,1,4);
     Mat1->setValue(3,2,4);
     Mat1->setValue(3,3,7);
-    auto Mat2 = intFactory->createMatrixTemplate(3,3);
-    auto Mat3 = intFactory->createMatrixTemplate(2,2);
+    auto Mat2 = intFactory.createMatrixTemplate(3,3);
+    auto Mat3 = intFactory.createMatrixTemplate(2,2);
     Mat2->setValue(1,1,1);
     Mat2->setValue(1,2,2);
     Mat2->setValue(1,3,3);
@@ -294,8 +294,8 @@ TEST(MatrixTemplate,OperatorProductMatrix){
 }
 
 TEST(MatrixTemplate,OperatorProductNumber){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(2,3);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(2,3);
     Mat1->setValue(1,1,2);
     Mat1->setValue(1,2,5);
     Mat1->setValue(1,3,4);
@@ -309,8 +309,8 @@ TEST(MatrixTemplate,OperatorProductNumber){
 }
 
 TEST(MatrixTemplate,ElMult){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(3,3);
     Mat1->setValue(1,1,5);
     Mat1->setValue(1,2,3);
     Mat1->setValue(1,3,2);
@@ -318,8 +318,8 @@ TEST(MatrixTemplate,ElMult){
     Mat1->setValue(3,1,4);
     Mat1->setValue(3,2,4);
     Mat1->setValue(3,3,7);
-    auto Mat2 = intFactory->createMatrixTemplate(3,3);
-    auto Mat3 = intFactory->createMatrixTemplate(2,2);
+    auto Mat2 = intFactory.createMatrixTemplate(3,3);
+    auto Mat3 = intFactory.createMatrixTemplate(2,2);
     Mat2->setValue(1,1,1);
     Mat2->setValue(1,2,2);
     Mat2->setValue(1,3,3);
@@ -336,8 +336,8 @@ TEST(MatrixTemplate,ElMult){
 }
 
 TEST(MatrixTemplate,OperatorPower){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(3,3);
     Mat1->setValue(1,1,5);
     Mat1->setValue(1,2,3);
     Mat1->setValue(1,3,2);
@@ -354,8 +354,8 @@ TEST(MatrixTemplate,OperatorPower){
 }
 
 TEST(MatrixTemplate,ElPow){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(3,3);
     Mat1->setValue(1,1,5);
     Mat1->setValue(1,2,3);
     Mat1->setValue(1,3,2);
@@ -375,9 +375,9 @@ TEST(MatrixTemplate,ElPow){
 }
 
 TEST(MatrixTemplate,NormaInf){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(1,3);
-    auto Mat2 = intFactory->createMatrixTemplate(3,1);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(1,3);
+    auto Mat2 = intFactory.createMatrixTemplate(3,1);
     Mat1->setValue(1,1,3);
     Mat1->setValue(1,2,6);
     Mat1->setValue(1,3,4);
@@ -386,7 +386,7 @@ TEST(MatrixTemplate,NormaInf){
     Mat2->setValue(3,1,8);
     ASSERT_EQ(6,Mat1->normainf());
     ASSERT_EQ(8,Mat2->normainf());
-    auto Mat3 = intFactory->createMatrixTemplate(3,3);
+    auto Mat3 = intFactory.createMatrixTemplate(3,3);
     Mat3->setValue(1,1,4);
     Mat3->setValue(1,2,6);
     Mat3->setValue(1,3,7);
@@ -399,9 +399,9 @@ TEST(MatrixTemplate,NormaInf){
 }
 
 TEST(MatrixTemplate,NormaUno){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(1,3);
-    auto Mat2 = intFactory->createMatrixTemplate(3,1);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(1,3);
+    auto Mat2 = intFactory.createMatrixTemplate(3,1);
     Mat1->setValue(1,1,3);
     Mat1->setValue(1,2,6);
     Mat1->setValue(1,3,4);
@@ -410,7 +410,7 @@ TEST(MatrixTemplate,NormaUno){
     Mat2->setValue(3,1,8);
     ASSERT_EQ(13,Mat1->norma1());
     ASSERT_EQ(16,Mat2->norma1());
-    auto Mat3 = intFactory->createMatrixTemplate(3,3);
+    auto Mat3 = intFactory.createMatrixTemplate(3,3);
     Mat3->setValue(1,1,4);
     Mat3->setValue(1,2,6);
     Mat3->setValue(1,3,7);
@@ -423,8 +423,8 @@ TEST(MatrixTemplate,NormaUno){
 }
 
 TEST(MatrixTemplate,NormaDue){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(3,3);
     Mat1->setValue(1,1,5);
     Mat1->setValue(1,2,3);
     Mat1->setValue(1,3,2);
@@ -433,7 +433,7 @@ TEST(MatrixTemplate,NormaDue){
     Mat1->setValue(3,2,4);
     Mat1->setValue(3,3,7);
     ASSERT_THROW(Mat1->norma2(),std::logic_error);
-    auto Mat2 = intFactory->createMatrixTemplate(1,5);
+    auto Mat2 = intFactory.createMatrixTemplate(1,5);
     Mat2->setValue(1,1,2);
     Mat2->setValue(1,2,5);
     Mat2->setValue(1,3,7);
@@ -457,9 +457,9 @@ TEST(MatrixTemplate,Ones){
 }
 
 TEST(MatrixTemplate,Identity){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(3,3);
-    auto Mat2 = intFactory->createMatrixTemplate(2,3);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(3,3);
+    auto Mat2 = intFactory.createMatrixTemplate(2,3);
     ASSERT_THROW(Mat2->identity(),std::logic_error);
     auto Mat3 = Mat1->identity();
     for(int i=1;i<=Mat3.getRows();i++){
@@ -473,8 +473,8 @@ TEST(MatrixTemplate,Identity){
 }
 
 TEST(MatrixTemplate,Diag){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(3,3);
     Mat1->setValue(1,1,5);
     Mat1->setValue(1,2,3);
     Mat1->setValue(1,3,2);
@@ -482,7 +482,7 @@ TEST(MatrixTemplate,Diag){
     Mat1->setValue(3,1,4);
     Mat1->setValue(3,2,4);
     Mat1->setValue(3,3,7);
-    auto Mat2 = intFactory->createMatrixTemplate(1,3);
+    auto Mat2 = intFactory.createMatrixTemplate(1,3);
     ASSERT_THROW(Mat2->diag(),std::logic_error);
     auto MatDiag = Mat1->diag();
     ASSERT_EQ(MatDiag.getValue(1,3),0);
@@ -492,9 +492,9 @@ TEST(MatrixTemplate,Diag){
 }
 
 TEST(MatrixTemplate,DiagVect){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(3,3);
-    auto Mat2 = intFactory->createMatrixTemplate(1,3);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(3,3);
+    auto Mat2 = intFactory.createMatrixTemplate(1,3);
     Mat1->setValue(1,1,2);
     Mat1->setValue(2,2,3);
     Mat1->setValue(3,3,9);
@@ -509,9 +509,9 @@ TEST(MatrixTemplate,DiagVect){
 }
 
 TEST(MatrixTemplate,UpperTriangular){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(3,3);
-    auto Mat2 = intFactory->createMatrixTemplate(3,1);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(3,3);
+    auto Mat2 = intFactory.createMatrixTemplate(3,1);
     Mat1->setValue(1,1,5);
     Mat1->setValue(1,2,3);
     Mat1->setValue(1,3,2);
@@ -535,9 +535,9 @@ TEST(MatrixTemplate,UpperTriangular){
 }
 
 TEST(MatrixTemplate,LowerTriangular){
-    MatrixFactory<int>* intFactory;
-    auto Mat1 = intFactory->createMatrixTemplate(3,3);
-    auto Mat2 = intFactory->createMatrixTemplate(3,1);
+    MatrixFactory<int> intFactory;
+    auto Mat1 = intFactory.createMatrixTemplate(3,3);
+    auto Mat2 = intFactory.createMatrixTemplate(3,1);
     Mat1->setValue(1,1,5);
     Mat1->setValue(1,2,3);
     Mat1->setValue(1,3,2);
