@@ -534,3 +534,28 @@ TEST(MatrixTemplate,UpperTriangular){
     ASSERT_EQ(3,Mat3.getValue(1,2));
 }
 
+TEST(MatrixTemplate,LowerTriangular){
+    MatrixFactory<int>* intFactory;
+    auto Mat1 = intFactory->createMatrixTemplate(3,3);
+    auto Mat2 = intFactory->createMatrixTemplate(3,1);
+    Mat1->setValue(1,1,5);
+    Mat1->setValue(1,2,3);
+    Mat1->setValue(1,3,2);
+    Mat1->setValue(2,1,6);
+    Mat1->setValue(2,2,8);
+    Mat1->setValue(2,3,1);
+    Mat1->setValue(3,1,4);
+    Mat1->setValue(3,2,4);
+    Mat1->setValue(3,3,7);
+    ASSERT_THROW(Mat2->lowerTriangular(),std::logic_error);
+    auto Mat3 = Mat1->lowerTriangular();
+    for(int i=1;i<=Mat3.getRows();i++){
+        for(int j=1;j<=Mat3.getColumns();j++){
+            if(i<j)
+                ASSERT_EQ(Mat3.getValue(i,j),0);
+        }
+    }
+    ASSERT_EQ(6,Mat3.getValue(2,1));
+    ASSERT_EQ(7,Mat3.getValue(3,3));
+    ASSERT_EQ(4,Mat3.getValue(3,2));
+}
