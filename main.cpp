@@ -12,4 +12,5 @@ int main() {
     Mat1->setValue(3,2,5.6);
     Mat1->setValue(3,3,8.7);
     Mat1->print();
+    delete Mat1;
 }

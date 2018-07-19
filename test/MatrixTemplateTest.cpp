@@ -13,6 +13,8 @@ TEST(MatrixTemplate,DefaultConstructor){
     ASSERT_EQ(0,Mat1->getValue(2,2));
     auto Mat2 = intFactory.createMatrixTemplate(0,2);
     ASSERT_EQ(1,Mat2->getRows());
+    delete Mat1;
+    delete Mat2;
 }
 
 TEST(MatrixTemplate,CopyConstructor){
@@ -30,6 +32,7 @@ TEST(MatrixTemplate,CopyConstructor){
     Mat2.setValue(2,1,5);
     Mat2.setValue(1,1,-9);
     ASSERT_FALSE(Mat2==*Mat1);
+    delete Mat1;
 }
 
 TEST(MatrixTemplate,SelectRow){
@@ -48,6 +51,7 @@ TEST(MatrixTemplate,SelectRow){
     ASSERT_EQ(5.4,MatRow.getValue(1,3));
     ASSERT_THROW(Mat1->selectRow(0),std::out_of_range);
     ASSERT_THROW(Mat1->selectRow(4),std::out_of_range);
+    delete Mat1;
 }
 
 TEST(MatrixTemplate,SelectColumn){
@@ -66,6 +70,7 @@ TEST(MatrixTemplate,SelectColumn){
     ASSERT_EQ(10,MatColumn.getValue(3,1));
     ASSERT_THROW(Mat1->selectColumn(0),std::out_of_range);
     ASSERT_THROW(Mat1->selectColumn(4),std::out_of_range);
+    delete Mat1;
 }
 
 TEST(MatrixTemplate,GetValue){
@@ -81,6 +86,7 @@ TEST(MatrixTemplate,GetValue){
     ASSERT_EQ(1,Mat1->getValue(1,1));
     ASSERT_THROW(Mat1->getValue(0,0),std::out_of_range);
     ASSERT_THROW(Mat1->getValue(4,5),std::out_of_range);
+    delete Mat1;
 }
 
 TEST(MatrixTemplate,SetValue){
@@ -94,6 +100,7 @@ TEST(MatrixTemplate,SetValue){
     Mat1->setValue(3,2,10);
     Mat1->setValue(3,3,-5);
     ASSERT_THROW(Mat1->setValue(5,2,10),std::out_of_range);
+    delete Mat1;
 }
 
 TEST(MatrixTemplate,OperatorAssignement){
@@ -110,6 +117,7 @@ TEST(MatrixTemplate,OperatorAssignement){
     ASSERT_EQ(Mat1->getValue(1,1),Mat2.getValue(1,1));
     ASSERT_EQ(Mat1->getRows(),Mat2.getRows());
     ASSERT_EQ(Mat1->getColumns(),Mat2.getColumns());
+    delete Mat1;
 }
 
 TEST(MatrixTemplate,TransposedMatrix){
@@ -128,6 +136,7 @@ TEST(MatrixTemplate,TransposedMatrix){
     ASSERT_FLOAT_EQ(5.4,Mat2.getValue(2,3));
     ASSERT_EQ(3,Mat2.getRows());
     ASSERT_EQ(3,Mat2.getColumns());
+    delete Mat1;
 }
 
 TEST(MatrixTemplate,OperatorPlus){
@@ -153,6 +162,9 @@ TEST(MatrixTemplate,OperatorPlus){
     ASSERT_EQ(Mat4.getValue(1,1),6);
     ASSERT_EQ(Mat4.getValue(1,3),5);
     ASSERT_THROW(*Mat1+*Mat3,std::logic_error);
+    delete Mat1;
+    delete Mat2;
+    delete Mat3;
 }
 
 TEST(MatrixTemplate,OperatorPlusEqual){
@@ -178,6 +190,9 @@ TEST(MatrixTemplate,OperatorPlusEqual){
     ASSERT_EQ(Mat1->getValue(1,1),6);
     ASSERT_EQ(Mat1->getValue(1,3),5);
     ASSERT_THROW(*Mat1+=*Mat3,std::logic_error);
+    delete Mat1;
+    delete Mat2;
+    delete Mat3;
 }
 
 TEST(MatrixTemplate,OperatorEquality){
@@ -196,6 +211,7 @@ TEST(MatrixTemplate,OperatorEquality){
     ASSERT_TRUE(*Mat1==Mat2);
     Mat2.setValue(3,3,8.7);
     ASSERT_FALSE(*Mat1==Mat2);
+    delete Mat1;
 }
 
 TEST(MatrixTemplate,OperatorDisequality){
@@ -214,6 +230,7 @@ TEST(MatrixTemplate,OperatorDisequality){
     ASSERT_FALSE(*Mat1!=Mat2);
     Mat2.setValue(3,3,8.7);
     ASSERT_TRUE(*Mat1!=Mat2);
+    delete Mat1;
 }
 
 TEST(MatrixTemplate,OperatorMinus){
@@ -239,6 +256,9 @@ TEST(MatrixTemplate,OperatorMinus){
     ASSERT_EQ(Mat4.getValue(1,1),4);
     ASSERT_EQ(Mat4.getValue(1,3),-1);
     ASSERT_THROW(*Mat1+*Mat3,std::logic_error);
+    delete Mat1;
+    delete Mat2;
+    delete Mat3;
 }
 
 TEST(MatrixTemplate,OperatorMinusEqual){
@@ -264,6 +284,9 @@ TEST(MatrixTemplate,OperatorMinusEqual){
     ASSERT_EQ(Mat1->getValue(1,1),4);
     ASSERT_EQ(Mat1->getValue(1,3),-1);
     ASSERT_THROW(*Mat1+=*Mat3,std::logic_error);
+    delete Mat1;
+    delete Mat2;
+    delete Mat3;
 }
 
 TEST(MatrixTemplate,OperatorProductMatrix){
@@ -291,6 +314,9 @@ TEST(MatrixTemplate,OperatorProductMatrix){
     ASSERT_EQ(Mat4.getValue(1,1),21);
     ASSERT_EQ(Mat4.getValue(1,3),15);
     ASSERT_THROW(*Mat1 * *Mat3,std::logic_error);
+    delete Mat1;
+    delete Mat2;
+    delete Mat3;
 }
 
 TEST(MatrixTemplate,OperatorProductNumber){
@@ -306,6 +332,7 @@ TEST(MatrixTemplate,OperatorProductNumber){
     ASSERT_EQ(6,Mat2.getValue(1,1));
     ASSERT_EQ(15,Mat2.getValue(1,2));
     ASSERT_EQ(12,Mat2.getValue(1,3));
+    delete Mat1;
 }
 
 TEST(MatrixTemplate,ElMult){
@@ -333,6 +360,9 @@ TEST(MatrixTemplate,ElMult){
     ASSERT_EQ(Mat4.getValue(1,1),5);
     ASSERT_EQ(Mat4.getValue(1,3),6);
     ASSERT_THROW(Mat1->elMult(*Mat3),std::logic_error);
+    delete Mat1;
+    delete Mat2;
+    delete Mat3;
 }
 
 TEST(MatrixTemplate,OperatorPower){
@@ -351,6 +381,7 @@ TEST(MatrixTemplate,OperatorPower){
     ASSERT_EQ(Mat2.getValue(1,1),33);
     ASSERT_EQ(Mat2.getValue(1,3),24);
     ASSERT_THROW((*Mat1)^(-5),std::logic_error);
+    delete Mat1;
 }
 
 TEST(MatrixTemplate,ElPow){
@@ -372,6 +403,7 @@ TEST(MatrixTemplate,ElPow){
     ASSERT_EQ(Mat2.getValue(1,1),1);
     ASSERT_EQ(Mat2.getValue(3,3),1);
     ASSERT_THROW((*Mat1).elPow(-1),std::logic_error);
+    delete Mat1;
 }
 
 TEST(MatrixTemplate,NormaInf){
@@ -396,6 +428,9 @@ TEST(MatrixTemplate,NormaInf){
     Mat3->setValue(3,1,-1);
     Mat3->setValue(3,3,5);
     ASSERT_EQ(21,Mat3->normainf());
+    delete Mat1;
+    delete Mat2;
+    delete Mat3;
 }
 
 TEST(MatrixTemplate,NormaUno){
@@ -420,6 +455,9 @@ TEST(MatrixTemplate,NormaUno){
     Mat3->setValue(3,1,-1);
     Mat3->setValue(3,3,5);
     ASSERT_EQ(16,Mat3->norma1());
+    delete Mat1;
+    delete Mat2;
+    delete Mat3;
 }
 
 TEST(MatrixTemplate,NormaDue){
@@ -441,6 +479,8 @@ TEST(MatrixTemplate,NormaDue){
     Mat2->setValue(1,5,6);
     auto norma2 = Mat2->norma2();
     ASSERT_DOUBLE_EQ(norma2,sqrt(118));
+    delete Mat1;
+    delete Mat2;
 }
 
 TEST(MatrixTemplate,Ones){
@@ -454,6 +494,7 @@ TEST(MatrixTemplate,Ones){
             ASSERT_EQ(1,Mat2.getValue(i,j));
         }
     }
+    delete Mat1;
 }
 
 TEST(MatrixTemplate,Identity){
@@ -470,6 +511,8 @@ TEST(MatrixTemplate,Identity){
                 ASSERT_EQ(0,Mat3.getValue(i,j));
         }
     }
+    delete Mat1;
+    delete Mat2;
 }
 
 TEST(MatrixTemplate,Diag){
@@ -489,6 +532,8 @@ TEST(MatrixTemplate,Diag){
     ASSERT_EQ(MatDiag.getValue(3,1),0);
     ASSERT_EQ(MatDiag.getValue(1,1),5);
     ASSERT_EQ(MatDiag.getValue(2,2),8);
+    delete Mat1;
+    delete Mat2;
 }
 
 TEST(MatrixTemplate,DiagVect){
@@ -506,6 +551,8 @@ TEST(MatrixTemplate,DiagVect){
     ASSERT_EQ(MatVect.getValue(1,1),2);
     ASSERT_EQ(MatVect.getValue(1,2),3);
     ASSERT_EQ(MatVect.getValue(1,3),9);
+    delete Mat1;
+    delete Mat2;
 }
 
 TEST(MatrixTemplate,UpperTriangular){
@@ -532,6 +579,8 @@ TEST(MatrixTemplate,UpperTriangular){
     ASSERT_EQ(5,Mat3.getValue(1,1));
     ASSERT_EQ(1,Mat3.getValue(2,3));
     ASSERT_EQ(3,Mat3.getValue(1,2));
+    delete Mat1;
+    delete Mat2;
 }
 
 TEST(MatrixTemplate,LowerTriangular){
@@ -558,4 +607,6 @@ TEST(MatrixTemplate,LowerTriangular){
     ASSERT_EQ(6,Mat3.getValue(2,1));
     ASSERT_EQ(7,Mat3.getValue(3,3));
     ASSERT_EQ(4,Mat3.getValue(3,2));
+    delete Mat1;
+    delete Mat2;
 }
